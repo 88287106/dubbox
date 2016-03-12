@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.cxf.bus.extension.ExtensionManagerBus;
 import org.apache.cxf.endpoint.Client;
+import org.apache.cxf.endpoint.Server;
 import org.apache.cxf.frontend.ClientProxy;
 import org.apache.cxf.frontend.ClientProxyFactoryBean;
 import org.apache.cxf.frontend.ServerFactoryBean;
@@ -61,7 +62,7 @@ public class WebServiceProtocol extends AbstractProxyProtocol {
     
     private final ExtensionManagerBus bus = new ExtensionManagerBus();
 
-    private final HTTPTransportFactory transportFactory = new HTTPTransportFactory(bus);
+    private final HTTPTransportFactory transportFactory = new HTTPTransportFactory();
 	
     private HttpBinder httpBinder;
     
@@ -117,7 +118,9 @@ public class WebServiceProtocol extends AbstractProxyProtocol {
     	serverFactoryBean.create();
         return new Runnable() {
             public void run() {
-            	serverFactoryBean.destroy();
+                if(serverFactoryBean.getServer() != null) {
+                    serverFactoryBean.getServer().destroy();
+                }
             }
         };
     }
