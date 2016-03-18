@@ -593,6 +593,8 @@ public class Constants {
 
     public static final String GENERIC_SERIALIZATION_BEAN          = "bean";
 
+    public static final String CONTEXTPATH_KEY                     = "contextpath";
+
     /*
      * private Constants(){ }
      */

@@ -452,6 +452,10 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
         if ((contextPath == null || contextPath.length() == 0) && provider != null) {
             contextPath = provider.getContextpath();
         }
+        // 将contextpath通过url参数透传
+        if (contextPath != null && contextPath.length() > 0) {
+            map.put(Constants.CONTEXTPATH_KEY, contextPath);
+        }
         URL url = new URL(name, host, port, (contextPath == null || contextPath.length() == 0 ? "" : contextPath + "/") + path, map);
 
         if (ExtensionLoader.getExtensionLoader(ConfiguratorFactory.class)
